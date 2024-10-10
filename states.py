@@ -16,7 +16,6 @@ class Xabarlar(StatesGroup):
     
 class Xabar(StatesGroup):
     xodim = State()
-    # yosh = State()
     texnologiya = State()
     telegram = State()
     aloqa = State()

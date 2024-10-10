@@ -149,16 +149,16 @@ async def Finish(call: CallbackQuery, state: FSMContext):
     kasbi = data.get('kasbi')
     murojat = data.get('murojat')
     maqsad = data.get('maqsad')
-    if xabar == 'ha':
+    if xabar == 'haa':
         await call.message.answer("Adminga yuborildi...")
         await bot.send_message(chat_id=a[0], text=f"Ish joyi kerak:\n\n👨‍💼 Xodim: {xodim}\n🕑 Yosh: {yosh}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML", reply_markup=tasdiqla)
+        await state.set_state(Xabar.finish1)
     else:
         await call.message.answer("Yuborilmadi!")
-    await state.clear
 
 
-@dp.callback_query(F.data)
-async def Finishsh(call: CallbackQuery, state: FSMContext):
+@dp.callback_query(F.data == "ha", Xabar.finish1)
+async def Finishsh(call: CallbackQuery):
     xabar = call.data
     if xabar == 'ha':
         await call.message.answer("Gruppaga yuborildi")
@@ -168,8 +168,7 @@ async def Finishsh(call: CallbackQuery, state: FSMContext):
 
 
 
-
-@dp.callback_query(F.data=="sherik")
+@dp.callback_query(F.data == "sherik")
 async def Taomlar_Add(call: CallbackQuery, state:FSMContext):
     await call.message.answer("Sherik topish uchun ariza berish:\n\nHozir sizga birnecha savollar beriladi.\nHar biriga javob bering.\nOxirida agar hammasi to`g`ri bo`lsa, HA tugmasini bosing va arizangiz Adminga yuboriladi.")
     await call.message.answer("Ism, familyangizni yuboring?")
@@ -180,7 +179,7 @@ async def Taomlar_Add(call: CallbackQuery, state:FSMContext):
 async def TaomNomi(message: Message, state: FSMContext):
     xodim = message.text
     await state.update_data(
-        {"yosh":xodim}
+        {"xodim":xodim}
     )
     await message.answer("📚 Texnologiya:\n\nTalab qilinadigan texnologiyalarni kiriting?Texnologiya nomlarini vergul bilan ajrating. Masalan:\n\nJava, C++, C# ⤵️")
     await state.set_state(Xabar.texnologiya)
@@ -263,12 +262,12 @@ async def KinoNomiiiii(message: Message, state: FSMContext):
     kasbi = data.get('kasbi')
     murojat = data.get('murojat')
     maqsad = data.get('maqsad')
-    await message.answer(f"Ish joyi kerak:\n\n🏅 Sherik:{xodim}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML")
+    await message.answer(f"Sherik kerak:\n\n🏅 Sherik: {xodim}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML")
     await message.answer("Barcha ma'lumtlar to'g'rimi", reply_markup=tasdiq)
     await state.set_state(Xabar.finish)
 
 
-@dp.callback_query(F.data, Xabar.finish)
+@dp.callback_query(F.data == "haa", Xabar.finish)
 async def Finish(call: CallbackQuery, state: FSMContext):
     xabar = call.data
     data = await state.get_data()
@@ -282,16 +281,18 @@ async def Finish(call: CallbackQuery, state: FSMContext):
     kasbi = data.get('kasbi')
     murojat = data.get('murojat')
     maqsad = data.get('maqsad')
-    if xabar == 'ha':
+    if xabar == 'haa':
         await call.message.answer("Adminga yuborildi...")
-        await bot.send_message(chat_id=a[0], text=f"Ish joyi kerak:\n\n👨‍💼 Xodim: {xodim}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML", reply_markup=tasdiqla)
+        await bot.send_message(chat_id=a[0], text=f"Sherik kerak:\n\n🏅 Sherik: {xodim}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML", reply_markup=tasdiqla)
+        # await state.set_state(Xabar.finish1)
     else:
         await call.message.answer("Yuborilmadi!")
-    await state.clear
+    # await state.set_state(Xabar.finish1)
+
 
 
 @dp.callback_query(F.data)
-async def Finishsh(call: CallbackQuery, state: FSMContext):
+async def Finishsh(call: CallbackQuery):
     xabar = call.data
     if xabar == 'ha':
         await call.message.answer("Gruppaga yuborildi")

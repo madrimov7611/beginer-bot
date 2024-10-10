@@ -11,7 +11,7 @@ tasdiqlash = InlineKeyboardMarkup(
 
 tasdiq = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="Ha", callback_data='ha'), InlineKeyboardButton(text="Yoq", callback_data='yoq')]
+        [InlineKeyboardButton(text="Ha", callback_data='haa'), InlineKeyboardButton(text="Yoq", callback_data='yoq')]
     ]
 )
 
