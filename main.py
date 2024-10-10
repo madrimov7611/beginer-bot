@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from states import Xabarlar
+from states import Xabarlar, Xabar
 from aiogram import types
 from aiogram import Bot, Dispatcher, F
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -160,27 +160,147 @@ async def Finish(call: CallbackQuery, state: FSMContext):
 @dp.callback_query(F.data)
 async def Finishsh(call: CallbackQuery, state: FSMContext):
     xabar = call.data
-    # print(xabar)
-    # data = await state.get_data()
-    # telegram = call.from_user.url
-    # name = call.from_user.username
-    # xodim = data.get('xodim')
-    # yosh = data.get('yosh')
-    # texnologiya = data.get('texnologiya')
-    # aloqa = data.get('aloqa')
-    # hudud = data.get('hudud')
-    # narxi = data.get('narxi')
-    # kasbi = data.get('kasbi')
-    # murojat = data.get('murojat')
-    # maqsad = data.get('maqsad')
     if xabar == 'ha':
         await call.message.answer("Gruppaga yuborildi")
         await call.message.send_copy(chat_id=-1002467871625, reply_markup=ReplyKeyboardRemove())
-        # await bot.send_message(chat_id= -1002467871625, text=f"Ish joyi kerak:\n\n👨‍💼 Xodim: {xodim}\n🕑 Yosh: {yosh}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML")
-        # await state.clear()
     else:
         await call.message.answer("Yuborilmadi!")
-        # await state.clear()
+
+
+
+
+@dp.callback_query(F.data=="sherik")
+async def Taomlar_Add(call: CallbackQuery, state:FSMContext):
+    await call.message.answer("Sherik topish uchun ariza berish:\n\nHozir sizga birnecha savollar beriladi.\nHar biriga javob bering.\nOxirida agar hammasi to`g`ri bo`lsa, HA tugmasini bosing va arizangiz Adminga yuboriladi.")
+    await call.message.answer("Ism, familyangizni yuboring?")
+    await state.set_state(Xabar.xodim)
+
+
+@dp.message(F.text, Xabar.xodim)
+async def TaomNomi(message: Message, state: FSMContext):
+    xodim = message.text
+    await state.update_data(
+        {"yosh":xodim}
+    )
+    await message.answer("📚 Texnologiya:\n\nTalab qilinadigan texnologiyalarni kiriting?Texnologiya nomlarini vergul bilan ajrating. Masalan:\n\nJava, C++, C# ⤵️")
+    await state.set_state(Xabar.texnologiya)
+
+
+@dp.message(F.text, Xabar.texnologiya)
+async def TaomNomi(message: Message, state: FSMContext):
+    texnologiya = message.text
+    await state.update_data(
+        {"texnologiya":texnologiya}
+    )
+    await message.answer("📞 Aloqa:\n\nBog`lanish uchun raqamingizni kiriting?\nMasalan: +998 90 123 45 67 ⤵️")
+    await state.set_state(Xabar.aloqa)
+
+
+@dp.message(F.text, Xabar.aloqa)
+async def TaomNomi(message: Message, state: FSMContext):
+    aloqa = message.text
+    await state.update_data(
+        {"aloqa":aloqa}
+    )
+    await message.answer("🌐 Hudud:\n\nQaysi hududdansiz?\nViloyat nomi, Toshkent shahar yoki Respublikani kiriting. ⤵️")
+    await state.set_state(Xabar.hudud)
+
+
+@dp.message(F.text, Xabar.hudud)
+async def TaomNomi(message: Message, state: FSMContext):
+    hudud = message.text
+    await state.update_data(
+        {"hudud":hudud}
+    )
+    await message.answer("💰 Narxi:\n\nTolov qilasizmi yoki Tekinmi?\nKerak bo`lsa, Summani kiriting? ⤵️")
+    await state.set_state(Xabar.narxi)
+
+
+@dp.message(F.text, Xabar.narxi)
+async def TaomNomi(message: Message, state: FSMContext):
+    narxi = message.text
+    await state.update_data(
+        {"narxi":narxi}
+    )
+    await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
+    await state.set_state(Xabar.kasbi)
+
+
+@dp.message(F.text, Xabar.kasbi)
+async def TaomNomi(message: Message, state: FSMContext):
+    kasbi = message.text
+    await state.update_data(
+        {"kasbi":kasbi}
+    )
+    await message.answer("🕰 Murojaat qilish vaqti:\n\nQaysi vaqtda murojaat qilish mumkin?\nMasalan: 9:00 - 18:00 ⤵️")
+    await state.set_state(Xabar.murojat)
+
+
+@dp.message(F.text, Xabar.murojat)
+async def TaomNomi(message: Message, state: FSMContext):
+    murojat = message.text
+    await state.update_data(
+        {"murojat":murojat}
+    )
+    await message.answer("🔎 Maqsad: Maqsadingizni qisqacha yozib bering. ⤵️")
+    await state.set_state(Xabar.maqsad)
+
+
+@dp.message(F.text, Xabar.maqsad)
+async def KinoNomiiiii(message: Message, state: FSMContext):
+    maqsad = message.text
+    await state.update_data(
+        {"maqsad":maqsad}
+    )
+    data = await state.get_data()
+    telegram = message.from_user.url
+    name = message.from_user.username
+    xodim = data.get('xodim')
+    texnologiya = data.get('texnologiya')
+    aloqa = data.get('aloqa')
+    hudud = data.get('hudud')
+    narxi = data.get('narxi')
+    kasbi = data.get('kasbi')
+    murojat = data.get('murojat')
+    maqsad = data.get('maqsad')
+    await message.answer(f"Ish joyi kerak:\n\n🏅 Sherik:{xodim}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML")
+    await message.answer("Barcha ma'lumtlar to'g'rimi", reply_markup=tasdiq)
+    await state.set_state(Xabar.finish)
+
+
+@dp.callback_query(F.data, Xabar.finish)
+async def Finish(call: CallbackQuery, state: FSMContext):
+    xabar = call.data
+    data = await state.get_data()
+    telegram = call.from_user.url
+    name = call.from_user.username
+    xodim = data.get('xodim')
+    texnologiya = data.get('texnologiya')
+    aloqa = data.get('aloqa')
+    hudud = data.get('hudud')
+    narxi = data.get('narxi')
+    kasbi = data.get('kasbi')
+    murojat = data.get('murojat')
+    maqsad = data.get('maqsad')
+    if xabar == 'ha':
+        await call.message.answer("Adminga yuborildi...")
+        await bot.send_message(chat_id=a[0], text=f"Ish joyi kerak:\n\n👨‍💼 Xodim: {xodim}\n📚 Texnologiya: {texnologiya}\n🇺🇿 Telegram: <a href='{telegram}'>@{name}</a>\n📞 Aloqa: {aloqa}\n🌐 Hudud: {hudud}\n💰 Narxi: {narxi}\n👨🏻‍💻 Kasbi: {kasbi}\n🕰 Murojaat qilish vaqti: {murojat}\n🔎 Maqsad: {maqsad}", parse_mode="HTML", reply_markup=tasdiqla)
+    else:
+        await call.message.answer("Yuborilmadi!")
+    await state.clear
+
+
+@dp.callback_query(F.data)
+async def Finishsh(call: CallbackQuery, state: FSMContext):
+    xabar = call.data
+    if xabar == 'ha':
+        await call.message.answer("Gruppaga yuborildi")
+        await call.message.send_copy(chat_id=-1002467871625, reply_markup=ReplyKeyboardRemove())
+    else:
+        await call.message.answer("Yuborilmadi!")
+
+
+
 
 
 # @dp.callback_query(F.data, Xabarlar.finish)
