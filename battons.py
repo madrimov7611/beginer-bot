@@ -1,4 +1,4 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
@@ -11,15 +11,15 @@ tasdiqlash = InlineKeyboardMarkup(
 
 tasdiq = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="Ha", callback_data='haa'), InlineKeyboardButton(text="Yoq", callback_data='yoq')]
+        [InlineKeyboardButton(text="Ha", callback_data='haa'), InlineKeyboardButton(text="Yoq", callback_data='yoqq')]
     ]
 )
 
-
-tasdiqla = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text="Ha", callback_data='ha'), InlineKeyboardButton(text="Yoq", callback_data='yoq')]
-    ]
+ortgaaa = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="Ortga")]
+    ],
+    resize_keyboard=True
 )
 
 

@@ -1,5 +1,5 @@
 tokenn="7670075487:AAEarzNsgccLmTProf0OQAmKEZXBalASMAE"
-a = [1871977695, ]
+admins = [1871977695, ]
 
 #/c/Users/pc/.ssh/id_ed25519.pub
 
