@@ -15,9 +15,24 @@ tasdiq = InlineKeyboardMarkup(
     ]
 )
 
-ortgaaa = ReplyKeyboardMarkup(
+# ortgaaa = InlineKeyboardMarkup(
+#     inline_keyboard=[
+#         [InlineKeyboardButton(text="Ortga", callback_data="ortga")]
+#     ]
+# )
+
+
+ortgaaaa = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text="Ortga")]
+        [KeyboardButton(text="ortga")]
+    ],
+    resize_keyboard=True
+)
+
+
+tell = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="Raqamni ulashish", request_contact=True)]
     ],
     resize_keyboard=True
 )
@@ -31,46 +46,10 @@ habarlar = InlineKeyboardMarkup(
     ]
 )
 
-# taom = InlineKeyboardMarkup(
 
-#     inline_keyboard=[
-#         [InlineKeyboardButton(text="Taomlar", callback_data='taomm'), InlineKeyboardButton(text="Ichimliklar", callback_data='ichimlikk'), InlineKeyboardButton(text="Zakuska", callback_data='zakuss')],
-#         [InlineKeyboardButton(text="Ortga", callback_data='ortga')]
-#     ]
-# )
-
-
-# taomlars = ReadTaomlar()
-# yegulik = InlineKeyboardBuilder()
-# for i in taomlars:
-#     yegulik.button(text=f"{i[0]}", callback_data=f"{i[0]}")
-# yegulik.button(text="🔙 Ortga", callback_data="ortga")
-# yegulik.adjust(2)
-# # print(yegulik)
-
-
-# ichimlik = ReadIchimlik()
-# suv = InlineKeyboardBuilder()
-# for suvv in ichimlik:
-#     suv.button(text=f"{suvv[0]}", callback_data=f"{suvv[0]}")
-# suv.button(text="🔙 Ortga", callback_data="ortga")
-# suv.adjust(2)
-# # print(suvv)
-
-
-# zakuzka = ReadZakuska()
-# zak = InlineKeyboardBuilder()
-# for zakk in zakuzka:
-#     zak.button(text=f"{zakk[0]}", callback_data=f"{zakk[0]}")
-# zak.button(text="🔙 Ortga", callback_data="ortga")
-# zak.adjust(2)
-
-
-# from base import ReadTaomlar
-# taomlars = len(ReadTaomlar())
-# keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-
-# for taom in taomlars:
-    # button = KeyboardButton(taom[0])
-    # keyboard.add(button)
-# print(keyboard)
+adminlar = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="Reklama", callback_data='reklama'), InlineKeyboardButton(text="Obuna soni", callback_data='obuna')],
+        [InlineKeyboardButton(text="Username", callback_data='userr')]
+    ]
+)

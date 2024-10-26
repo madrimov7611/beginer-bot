@@ -12,6 +12,7 @@ class Xabarlar(StatesGroup):
     murojat = State()
     maqsad = State()
     finish = State()
+    finish1 = State()
     
 class Xabar(StatesGroup):
     xodim = State()
@@ -23,6 +24,7 @@ class Xabar(StatesGroup):
     murojat = State()
     maqsad = State()
     finish = State()
+    finish1 = State()
 
 class Xabar1(StatesGroup):
     xodim = State()
@@ -35,6 +37,7 @@ class Xabar1(StatesGroup):
     maqsad = State()
     finish = State()
     finish1 = State()
+    finish2 = State()
 
 class Xabar2(StatesGroup):
     xodim = State()
@@ -47,6 +50,7 @@ class Xabar2(StatesGroup):
     murojat = State()
     maqsad = State()
     finish = State()
+    finish1 = State()
 
 class Xabar3(StatesGroup):
     xodim = State()
@@ -59,3 +63,4 @@ class Xabar3(StatesGroup):
     murojat = State()
     maqsad = State()
     finish = State()
+    finish1 = State()

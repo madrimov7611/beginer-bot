@@ -167,3 +167,40 @@
 # 🕰 Ish vaqti: 9:00 - 18:00 
 # 💰 Maosh: amaliyot
 # ‼️ Qo`shimcha: Kim o'z ustida ishlamoqchi bo'lsa va portfoliyoga ega bo'lmoqchi bo'lsa amaliyotga taklif qilamiz
+
+
+
+
+
+# @dp.message(Form.phone)
+# async def TelRaqam(message: Message, state: FSMContext):
+#     if message.contact:
+#         phone_number = message.contact.phone_number
+#         if phone_number.startswith("998") or phone_number.startswith("+998"):
+#             await state.update_data(phone_number=phone_number)
+#             await message.answer("▫️ Yoshingizni tanlang.", reply_markup=yosh)
+#             await state.set_state(Form.age)
+#         else:
+#             await message.answer(
+#                 text="<b>🙅‍♂️ Bot faqat O'zbekiston fuqarolari uchun ishlaydi.</b>",
+#                 reply_markup=ReplyKeyboardRemove(),
+#             )
+#             await state.clear()
+    # elif message.text:
+    #     r = message.text.replace("+", "")
+    #     if len(message.text) == 12 or len(message.text) == 13:
+    #         if (str(r).startswith("998")) or str(r).startswith("+998"):
+    #             await state.update_data(phone_number=message.text)
+    #             await message.answer("▫️ Yoshingizni tanlang.", reply_markup=yosh)
+    #             await state.set_state(Form.age)
+    #         else:
+    #             await message.answer(
+    #                 text="<b>🙅‍♂️ Bot faqat O'zbekiston fuqarolari uchun ishlaydi.</b>",
+    #                 reply_markup=ReplyKeyboardRemove(),
+    #             )
+    #             await state.clear()
+    #     else:
+    #         await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yuboring.</b>")
+
+    # else:
+    #     await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yubioring</b>")

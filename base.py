@@ -1,11 +1,11 @@
 from sqlite3 import Error, connect
 
 
-def InsertUserlar(first_name):# first_name, telegram_id, url='None', username='None'
+def InsertUserlar(first_name,  username='None'):# first_name, telegram_id, url='None', username='None'
     try:
-        c = connect('test.db')
+        c = connect('data.db')
         cursor = c.cursor()
-        cursor.execute("""insert into userlar(first_name) values(?)""", (first_name,))
+        cursor.execute("""insert into userlar(first_name, username) values(?, ?)""", (first_name, username))
         c.commit()
         cursor.close()
     except (Error, Exception) as eror:
@@ -13,13 +13,13 @@ def InsertUserlar(first_name):# first_name, telegram_id, url='None', username='N
     finally:
         if c:
             c.close()
-# InsertUserlar("Javohir")
+# InsertUserlar("Javohir", "dcwjhbr")
 
 
 
 def ReadObunachilar():
     try:
-        c = connect('test.db')
+        c = connect('data.db')
         cursor = c.cursor()
         cursor.execute("select count(*) from userlar;")
         a = cursor.fetchall()
@@ -35,7 +35,7 @@ def ReadObunachilar():
 
 def ReadObunachilars():
     try:
-        c = connect('test.db')
+        c = connect('data.db')
         cursor = c.cursor()
         cursor.execute("select * from userlar;")
         a = cursor.fetchall()
@@ -50,12 +50,13 @@ def ReadObunachilars():
 
 
 # try:
-#     con = connect('test.db')
+#     con = connect('data.db')
 #     cursor = con.cursor()
 #     cursor.execute("""
 #             create table userlar(
 #                 ID INTEGER PRIMARY KEY NOT NULL,           
-#                 first_name text not null
+#                 first_name text not null,
+#                 username text
 #                 ); """)
 #     con.commit()
 #     cursor.close()
