@@ -1,4 +1,6 @@
-# @dp.callback_query(F.data, Xabarlar.finish)
+from base import ReadObunachilars
+
+# @dp.callback_query(F.d○ata, Xabarlar.finish)
 # async def KinolarFinish(call: CallbackQuery, state: FSMContext):
 #     data = await state.get_data()
 #     kino_nomi = data.get('nomi')
@@ -204,3 +206,8 @@
 
     # else:
     #     await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yubioring</b>")
+
+
+for ii in ReadObunachilars():
+    obunachilar = ii[2]
+    print(obunachilar)

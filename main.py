@@ -24,6 +24,8 @@ async def cmd_start(message: Message):
     first_name = message.from_user.first_name
     username = message.from_user.username
     if message.from_user.id == admins[0]:
+        await message.answer("Qanday eee 👋\n\nNima qilamiz ich qisib getdi qu ♠", reply_markup=adminlar)
+    else:
         a = []
         for i in ReadObunachilars():
             a.append(i[1])
@@ -33,8 +35,6 @@ async def cmd_start(message: Message):
             InsertUserlar(first_name=first_name, username=username)
         await message.answer(f"Assalomu aleykum {message.from_user.first_name}👋\n\nUstoz shoggi botiga hush kelibsiz?", reply_markup=habarlar)
         await message.delete()
-    else:
-        await message.answer("Qanday eee 👋\n\nNima qilamiz ich qisib getdi qu ♠", reply_markup=adminlar)
 
 
 @dp.callback_query(F.data=="ish")
@@ -936,11 +936,19 @@ async def Finishsh(call: CallbackQuery):
 
 
 
-@dp.message(F.text == "users", F.from_user.id.in_(admins))
-async def Obunachilar(message: Message):
-        for ii in ReadObunachilar():
-            obunachilar = ii[0]
-            await message.answer(f"Obunachilaringiz soni: {obunachilar}")
+@dp.callback_query(F.data == "obuna")
+async def Obunachilar(call: CallbackQuery):
+    for ii in ReadObunachilar():
+        obunachilar = ii[0]
+        await call.message.answer(f"Obunachilaringiz soni: {obunachilar}")
+
+
+@dp.callback_query(F.data == "userr")
+async def Obunachilar(call: CallbackQuery):
+    for ii in ReadObunachilars():
+        obunachilar = ii[2]
+        await call.message.answer(f"Obunachilarning username: {obunachilar}")
+
 
 
 # @dp.callback_query(F.data == "reklama")
