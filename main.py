@@ -21,9 +21,11 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def cmd_start(message: Message):
-    if message.from_user.id != admins[0]:
-        first_name = message.from_user.first_name
-        username = message.from_user.username
+    first_name = message.from_user.first_name
+    username = message.from_user.username
+    if message.from_user.id == admins[0]:
+        await message.answer("Qanday eee 👋\n\nNima qilamiz ich qisib getdi qu ♠", reply_markup=adminlar)
+    else:
         a = []
         for i in ReadObunachilars():
             a.append(i[1])
@@ -33,8 +35,6 @@ async def cmd_start(message: Message):
             InsertUserlar(first_name=first_name, username=username)
         await message.answer(f"Assalomu aleykum {message.from_user.first_name}👋\n\nUstoz shoggi botiga hush kelibsiz?", reply_markup=habarlar)
         await message.delete()
-    else:
-        await message.answer("Qanday eee 👋\n\nNima qilamiz ich qisib getdi qu ♠", reply_markup=adminlar)
 
 
 @dp.callback_query(F.data=="ish")
