@@ -950,12 +950,6 @@ async def Obunachilar(call: CallbackQuery):
         await call.message.answer(f"Obunachilarning username: {obunachilar}")
 
 
-
-# @dp.callback_query(F.data == "reklama")
-# async def ReklamaBot(cqall: CallbackQuery):
-
-
-
 @dp.message(F.text == "ortga")
 async def ortga_start(message: Message):
     await message.answer(f"Bosh sahifaga qaytdingiz", reply_markup=habarlar)
