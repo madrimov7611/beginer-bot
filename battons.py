@@ -26,7 +26,7 @@ ortgaaaa = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="ortga")]
     ],
-    resize_keyboard=True
+    resize_keyboard=True, one_time_keyboard=True
 )
 
 
@@ -34,7 +34,7 @@ tell = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Raqamni ulashish", request_contact=True)]
     ],
-    resize_keyboard=True
+    resize_keyboard=True, one_time_keyboard=True
 )
 
 
@@ -50,5 +50,6 @@ habarlar = InlineKeyboardMarkup(
 adminlar = InlineKeyboardMarkup(
     inline_keyboard=[
         [InlineKeyboardButton(text="Username", callback_data='userr'), InlineKeyboardButton(text="Obuna soni", callback_data='obuna')],
+        [InlineKeyboardButton(text="Reklama yuborish", callback_data="rek")]
     ]
 )

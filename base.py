@@ -1,11 +1,11 @@
 from sqlite3 import Error, connect
 
 
-def InsertUserlar(first_name,  username='None'):# first_name, telegram_id, url='None', username='None'
+def InsertUserlar(first_name, user_url, username='None'):# first_name, telegram_id, url='None', username='None'
     try:
         c = connect('data.db')
         cursor = c.cursor()
-        cursor.execute("""insert into userlar(first_name, username) values(?, ?)""", (first_name, username))
+        cursor.execute("""insert into userlar(first_name, username, user_url) values(?, ?, ?)""", (first_name, username, user_url))
         c.commit()
         cursor.close()
     except (Error, Exception) as eror:
@@ -56,7 +56,8 @@ def ReadObunachilars():
 #             create table userlar(
 #                 ID INTEGER PRIMARY KEY NOT NULL,           
 #                 first_name text not null,
-#                 username text
+#                 username text,
+#                 user_url text not null
 #                 ); """)
 #     con.commit()
 #     cursor.close()

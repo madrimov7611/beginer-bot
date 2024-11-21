@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from base import InsertUserlar, ReadObunachilar, ReadObunachilars
-from states import Xabarlar, Xabar, Xabar1, Xabar2, Xabar3
+from states import Xabarlar, Xabar, Xabar1, Xabar2, Xabar3, Rekla
 from aiogram import types
 from aiogram import Bot, Dispatcher, F
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -11,7 +11,8 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, FSInputFile, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
-from battons import habarlar, tasdiq, tasdiqlash, ortgaaaa, tell, adminlar   #ortgaaa
+from battons import habarlar, tasdiq, tasdiqlash, ortgaaaa, tell, adminlar
+
 
 
 logging.basicConfig(level=logging.INFO)
@@ -19,12 +20,15 @@ bot = Bot(token=tokenn,default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
 
+
 @dp.message(CommandStart())
-async def cmd_start(message: Message):
+async def cmd_start(message: Message, state: FSMContext):
     first_name = message.from_user.first_name
     username = message.from_user.username
+    user_url = message.from_user.url
     if message.from_user.id == admins[0]:
         await message.answer("Qanday eee 👋\n\nNima qilamiz ich qisib getdi qu ♠", reply_markup=adminlar)
+        await state.set_state(Rekla.abc1)
     else:
         a = []
         for i in ReadObunachilars():
@@ -32,9 +36,22 @@ async def cmd_start(message: Message):
         if first_name in a:
             pass
         else:
-            InsertUserlar(first_name=first_name, username=username)
+            InsertUserlar(first_name=first_name, username=username, user_url=user_url)
         await message.answer(f"Assalomu aleykum {message.from_user.first_name}👋\n\nUstoz shoggi botiga hush kelibsiz?", reply_markup=habarlar)
         await message.delete()
+
+
+
+@dp.callback_query(F.data == "rek", Rekla.abc1)
+async def Obunachilar(call: CallbackQuery):
+    await call.message.answer("yuboring: ")
+
+@dp.message(F.text)
+async def Obunachilar(mess: Message):
+    for ii in ReadObunachilars():
+        await mess.send_copy(chat_id=admins)
+    await mess.answer("yuborildi")
+
 
 
 @dp.callback_query(F.data=="ish")
@@ -566,6 +583,7 @@ async def Finishsh(call: CallbackQuery):
         await call.message.answer("Yuborilmadi!")
 
 
+
 @dp.callback_query(F.data=="ustoz")
 async def Taomlar_Add(call: CallbackQuery, state:FSMContext):
     await call.message.answer("Ustoz topish uchun ariza berish:\n\nHozir sizga birnecha savollar beriladi.\nHar biriga javob bering.\nOxirida agar hammasi to`g`ri bo`lsa,\nHA tugmasini bosing va arizangiz Adminga yuboriladi.")
@@ -746,6 +764,7 @@ async def Finishsh(call: CallbackQuery):
         await call.message.send_copy(chat_id= -1002467871625, reply_markup=ReplyKeyboardRemove())
     else:
         await call.message.answer("Yuborilmadi!")
+
 
 
 @dp.callback_query(F.data=="shoggi")
@@ -936,6 +955,26 @@ async def Finishsh(call: CallbackQuery):
 
 
 
+# @dp.message(F.text == "users")
+# async def mention_user(update, context):
+#     try:
+#         user_id = 6004741215
+#         mention_string = f'<a href="tg://user?id={user_id}">User</a>'
+#         await bot.send_message(chat_id=admins[0], text=mention_string, parse_mode=ParseMode.HTML)
+#     except Exception as e:
+#         print(f"Xato yuz berdi: {e}")
+
+
+
+# @dp.message(F.text == "users")
+# async def mention_user(update, context):
+#     user_id = 6004741215  # Replace with the actual user ID
+#     mention_string = f'<a href="tg://user?id={user_id}">User</a>'
+
+#     context.bot.send_message(chat_id=update.message.chat_id, text=mention_string, parse_mode=ParseMode.HTML)
+
+
+
 @dp.callback_query(F.data == "obuna")
 async def Obunachilar(call: CallbackQuery):
     for ii in ReadObunachilar():
@@ -946,8 +985,7 @@ async def Obunachilar(call: CallbackQuery):
 @dp.callback_query(F.data == "userr")
 async def Obunachilar(call: CallbackQuery):
     for ii in ReadObunachilars():
-        obunachilar = ii[2]
-        await call.message.answer(f"Obunachilarning username: {obunachilar}")
+        await call.message.answer(f"Obunachilarning ismi: <a href='{ii[3]}'> {ii[1]}</a>")
 
 
 @dp.message(F.text == "ortga")
@@ -963,6 +1001,7 @@ async def ortga_start(call: CallbackQuery):
         await call.message.delete()
     else:
         await call.message.answer_photo(photo="https://st2.depositphotos.com/1002277/10073/i/450/depositphotos_100732302-stock-photo-word-admin-on-wood-planks.jpg")
+
 
 
 async def main():

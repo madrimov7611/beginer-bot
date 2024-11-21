@@ -208,6 +208,43 @@ from base import ReadObunachilars
     #     await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yubioring</b>")
 
 
-for ii in ReadObunachilars():
-    obunachilar = ii[2]
-    print(obunachilar)
+# for ii in ReadObunachilars():
+#     obunachilar = ii[2]
+#     print(obunachilar)
+
+
+    # telegram = call.from_user.url
+    # name = call.from_user.username
+    # xabar = call.data
+    # builder = InlineKeyboardBuilder()
+    # for i in range(1, 13):
+    #     builder.add(types.InlineKeyboardButton(text=str(i), callback_data=str(i)))
+    # builder.add(types.InlineKeyboardButton(text="⬅️ Ortga", callback_data="ortga"))
+    # builder.adjust(4)
+    # for taom in ReadTaomlar():
+    #     if taom[0] == xabar:
+    #         await call.message.answer_photo(photo=f"{taom[1]}", caption=f"Maxsulot: {taom[0]}\nNarxi: {taom[2]}", reply_markup=builder.as_markup())
+    #         call.message.delete()
+
+
+
+# from telegram import ParseMode
+# from telegram.ext import Updater, CommandHandler
+
+# def mention_user(update, context):
+#  user_id = 6004741215  # Replace with the actual user ID
+#  mention_string = f'<a href="tg://user?id={user_id}">User</a>'
+
+#  context.bot.send_message(chat_id=update.message.chat_id, text=mention_string, parse_mode=ParseMode.HTML)
+
+# def main():
+#  updater = Updater(token='YOUR_BOT_TOKEN', use_context=True)
+#  dp = updater.dispatcher
+
+#  dp.add_handler(CommandHandler('mention', mention_user))
+
+#  updater.start_polling()
+#  updater.idle()
+
+# if __name__ == '__main__':
+#  main()

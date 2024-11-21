@@ -64,3 +64,8 @@ class Xabar3(StatesGroup):
     maqsad = State()
     finish = State()
     finish1 = State()
+
+
+class Rekla(StatesGroup):
+    abc1 = State()
+    abc2 = State()
