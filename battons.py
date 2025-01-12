@@ -49,7 +49,7 @@ habarlar = InlineKeyboardMarkup(
 
 adminlar = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="Username", callback_data='userr'), InlineKeyboardButton(text="Obuna soni", callback_data='obuna')],
-        [InlineKeyboardButton(text="Reklama yuborish", callback_data="rek")]
+        [InlineKeyboardButton(text="Username", callback_data="username"), InlineKeyboardButton(text="Obuna soni", callback_data="obuna")],
+        [InlineKeyboardButton(text="Reklama yuborish", callback_data="reklama")]
     ]
 )

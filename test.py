@@ -248,3 +248,109 @@ from base import ReadObunachilars
 
 # if __name__ == '__main__':
 #  main()
+
+
+
+# import re
+
+# pattern = '[0-9]'
+# test_string = '100'
+# result = re.match(pattern, test_string)
+
+# if result:
+#   print("Search successful.")
+# else:
+#   print("Search unsuccessful.")	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @dp.message(F.contact, Xabarlar.aloqa)
+# async def TaomNomi(message: Message, state: FSMContext):
+#     if message.contact:
+#         phone_number = message.contact.phone_number
+#         if phone_number.startswith("998") or phone_number.startswith("+998"):
+#             await state.update_data(
+#                 {"aloqa":phone_number}
+#             )
+#             await message.answer("🌐 Hudud:\n\nQaysi hududdansiz?\nViloyat nomi, Toshkent shahar yoki Respublikani kiriting. ⤵️", reply_markup=ReplyKeyboardRemove())
+#             await state.set_state(Xabarlar.hudud)
+#         else:
+#             await message.answer(
+#                 text="<b>🙅‍♂️ Bot faqat O'zbekiston fuqarolari uchun ishlaydi.</b>",
+#                 reply_markup=ReplyKeyboardRemove(),
+#             )
+#             await state.clear()
+
+#     elif message.text:
+#         r = message.text.replace("+", "")
+#         if len(message.text) == 12 or len(message.text) == 13:
+#             if (str(r).startswith("998")) or str(r).startswith("+998"):
+#                 await state.update_data(
+#                     {"aloqa":message.text}
+#                 )
+#                 await message.answer("🌐 Hudud:\n\nQaysi hududdansiz?\nViloyat nomi, Toshkent shahar yoki Respublikani kiriting. ⤵️")
+#                 await state.set_state(Xabarlar.hudud)
+#             else:
+#                 await message.answer(
+#                     text="<b>🙅‍♂️ Bot faqat O'zbekiston fuqarolari uchun ishlaydi.</b>",
+#                     reply_markup=ReplyKeyboardRemove(),
+#                 )
+#                 await state.clear()
+#         else:
+#             await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yuboring.</b>")
+
+#     else:
+#         await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yubioring</b>")
+
+
+
+
+# @dp.message(F.contact, Xabar.aloqa)
+# async def TaomNomi(message: Message, state: FSMContext):
+#     if message.contact:
+#         phone_number = message.contact.phone_number
+#         if phone_number.startswith("998") or phone_number.startswith("+998"):
+#             await state.update_data(
+#                 {"aloqa":phone_number}
+#             )
+#             await message.answer("🌐 Hudud:\n\nQaysi hududdansiz?\nViloyat nomi, Toshkent shahar yoki Respublikani kiriting. ⤵️")
+#             await state.set_state(Xabar.hudud)
+#         else:
+#             await message.answer(
+#                 text="<b>🙅‍♂️ Bot faqat O'zbekiston fuqarolari uchun ishlaydi.</b>",
+#                 reply_markup=ReplyKeyboardRemove(),
+#             )
+#             await state.clear()
+
+#     elif message.text:
+#         r = message.text.replace("+", "")
+#         if len(message.text) == 12 or len(message.text) == 13:
+#             if (str(r).startswith("998")) or str(r).startswith("+998"):
+#                 await state.update_data(
+#                     {"aloqa":message.text}
+#                 )
+#                 await message.answer("🌐 Hudud:\n\nQaysi hududdansiz?\nViloyat nomi, Toshkent shahar yoki Respublikani kiriting. ⤵️")
+#                 await state.set_state(Xabar.hudud)
+#             else:
+#                 await message.answer(
+#                     text="<b>🙅‍♂️ Bot faqat O'zbekiston fuqarolari uchun ishlaydi.</b>",
+#                     reply_markup=ReplyKeyboardRemove(),
+#                 )
+#                 await state.clear()
+#         else:
+#             await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yuboring.</b>")
+
+#     else:
+#         await message.answer(text="<b>⚠️ Faqat telefon raqamingizni yubioring</b>")

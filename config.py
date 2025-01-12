@@ -1,4 +1,4 @@
-tokenn="7589263320:AAF0OSc0VN7BcC4qa7lgv1GYC_8uhefW0RQ"
+tokenn="7807499429:AAE1_lGW_MYS2Rpiug2gfyFKPRa1KNwR9bo"
 admins = [1871977695]  #, 5502720862
 
 #/c/Users/pc/.ssh/id_ed25519.pub

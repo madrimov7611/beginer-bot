@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import re
 from base import InsertUserlar, ReadObunachilar, ReadObunachilars
 from states import Xabarlar, Xabar, Xabar1, Xabar2, Xabar3, Rekla
 from aiogram import types
@@ -42,15 +43,15 @@ async def cmd_start(message: Message, state: FSMContext):
 
 
 
-@dp.callback_query(F.data == "rek", Rekla.abc1)
-async def Obunachilar(call: CallbackQuery):
-    await call.message.answer("yuboring: ")
+# @dp.callback_query(F.data == "rek", Rekla.abc1)
+# async def Obunachilar(call: CallbackQuery):
+#     await call.message.answer("yuboring: ")
 
-@dp.message(F.text)
-async def Obunachilar(mess: Message):
-    for ii in ReadObunachilars():
-        await mess.send_copy(chat_id=admins)
-    await mess.answer("yuborildi")
+# @dp.message(F.text)
+# async def Obunachilar(mess: Message):
+#     for ii in ReadObunachilars():
+#         await mess.send_copy(chat_id=admins)
+#     await mess.answer("yuborildi")
 
 
 
@@ -149,15 +150,15 @@ async def TaomNomi(message: Message, state: FSMContext):
 @dp.message(F.text, Xabarlar.narxi)
 async def TaomNomi(message: Message, state: FSMContext):
     narxi = message.text
-    if narxi.isdigit():
-        await state.update_data(
-            {"narxi":narxi}
-        )
-        await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
-        await state.set_state(Xabarlar.kasbi)
-    else:
-        await message.answer("Son ko'rinishida yuboring !")
-        await state.set_state(Xabarlar.narxi)
+    # if narxi.isdigit():
+    await state.update_data(
+        {"narxi":narxi}
+    )
+    await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
+    await state.set_state(Xabarlar.kasbi)
+    # else:
+    #     await message.answer("Son ko'rinishida yuboring !")
+    #     await state.set_state(Xabarlar.narxi)
 
 
 @dp.message(F.text, Xabarlar.kasbi)
@@ -233,6 +234,7 @@ async def Finishsh(call: CallbackQuery):
     if xabar == 'ha':
         await call.message.answer("Gruppaga yuborildi")
         await call.message.send_copy(chat_id= -1002467871625, reply_markup=ReplyKeyboardRemove())
+        await call.message.delete()
     else:
         await call.message.answer("Yuborilmadi!")
 
@@ -266,7 +268,7 @@ async def TaomNomi(message: Message, state: FSMContext):
     await state.set_state(Xabar.aloqa)
 
 
-@dp.message(F.text, Xabar.aloqa)
+@dp.message(F.contact, Xabar.aloqa)
 async def TaomNomi(message: Message, state: FSMContext):
     if message.contact:
         phone_number = message.contact.phone_number
@@ -318,15 +320,15 @@ async def TaomNomi(message: Message, state: FSMContext):
 @dp.message(F.text, Xabar.narxi)
 async def TaomNomi(message: Message, state: FSMContext):
     narxi = message.text
-    if narxi.isdigit():
-        await state.update_data(
-            {"narxi":narxi}
-        )
-        await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
-        await state.set_state(Xabar.kasbi)
-    else:
-        await message.answer("Son ko'rinishida yuboring !")
-        await state.set_state(Xabarlar.narxi)
+    # if narxi.isdigit():
+    await state.update_data(
+        {"narxi":narxi}
+    )
+    await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
+    await state.set_state(Xabar.kasbi)
+    # else:
+    #     await message.answer("Son ko'rinishida yuboring !")
+    #     await state.set_state(Xabarlar.narxi)
 
 
 @dp.message(F.text, Xabar.kasbi)
@@ -429,10 +431,11 @@ async def TaomNomi(message: Message, state: FSMContext):
         {"texnologiya":texnologiya}
     )
     await message.answer("📞 Aloqa:\n\nBog`lanish uchun raqamni ulashishni bosing", reply_markup=tell)
+    await message.answer(f"Agar telegramdagi no'merda muammo bo'sa\nyozib yuborishingiz mumkin\n\nMasalan: +998 90 123 45 67 ")
     await state.set_state(Xabar1.aloqa)
 
 
-@dp.message(F.text, Xabar1.aloqa)
+@dp.message(F.contact, Xabar1.aloqa)
 async def TaomNomi(message: Message, state: FSMContext):
     if message.contact:
         phone_number = message.contact.phone_number
@@ -514,15 +517,15 @@ async def TaomNomi(message: Message, state: FSMContext):
 @dp.message(F.text, Xabar1.maqsad)
 async def KinoNomiiiii(message: Message, state: FSMContext):
     narxi = message.text
-    if narxi.isdigit():
-        await state.update_data(
-            {"narxi":narxi}
-        )
-        await message.answer("‼️ Qo`shimcha ma`lumotlar?")
-        await state.set_state(Xabar1.finish)
-    else:
-        await message.answer("Son ko'rinishida yuboring !")
-        await state.set_state(Xabar1.maqsad)
+    # if narxi.isdigit():
+    await state.update_data(
+        {"narxi":narxi}
+    )
+    await message.answer("‼️ Qo`shimcha ma`lumotlar?")
+    await state.set_state(Xabar1.finish)
+    # else:
+    #     await message.answer("Son ko'rinishida yuboring !")
+    #     await state.set_state(Xabar1.maqsad)
 
 
 
@@ -678,15 +681,15 @@ async def TaomNomi(message: Message, state: FSMContext):
 @dp.message(F.text, Xabar2.narxi)
 async def TaomNomi(message: Message, state: FSMContext):
     narxi = message.text
-    if narxi.isdigit():
-        await state.update_data(
-            {"narxi":narxi}
-        )
-        await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
-        await state.set_state(Xabar2.kasbi)
-    else:
-        await message.answer("Son ko'rinishida yuboring !")
-        await state.set_state(Xabar2.narxi)
+    # if narxi.isdigit():
+    await state.update_data(
+        {"narxi":narxi}
+    )
+    await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
+    await state.set_state(Xabar2.kasbi)
+    # else:
+    #     await message.answer("Son ko'rinishida yuboring !")
+    #     await state.set_state(Xabar2.narxi)
 
 
 @dp.message(F.text, Xabar2.kasbi)
@@ -866,15 +869,15 @@ async def TaomNomi(message: Message, state: FSMContext):
 @dp.message(F.text, Xabar3.narxi)
 async def TaomNomi(message: Message, state: FSMContext):
     narxi = message.text
-    if narxi.isdigit():
-        await state.update_data(
-            {"narxi":narxi}
-        )
-        await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
-        await state.set_state(Xabar3.kasbi)
-    else:
-        await message.answer("Son ko'rinishida yuboring !")
-        await state.set_state(Xabar3.narxi)
+    # if narxi.isdigit():
+    await state.update_data(
+        {"narxi":narxi}
+    )
+    await message.answer("👨🏻‍💻 Kasbi:\n\nIshlaysizmi yoki o`qiysizmi?\nMasalan: Talaba ⤵️")
+    await state.set_state(Xabar3.kasbi)
+    # else:
+    #     await message.answer("Son ko'rinishida yuboring !")
+    #     await state.set_state(Xabar3.narxi)
 
 
 @dp.message(F.text, Xabar3.kasbi)
@@ -954,24 +957,13 @@ async def Finishsh(call: CallbackQuery):
         await call.message.answer("Yuborilmadi!")
 
 
-
-# @dp.message(F.text == "users")
-# async def mention_user(update, context):
-#     try:
-#         user_id = 6004741215
-#         mention_string = f'<a href="tg://user?id={user_id}">User</a>'
-#         await bot.send_message(chat_id=admins[0], text=mention_string, parse_mode=ParseMode.HTML)
-#     except Exception as e:
-#         print(f"Xato yuz berdi: {e}")
-
-
-
-# @dp.message(F.text == "users")
-# async def mention_user(update, context):
-#     user_id = 6004741215  # Replace with the actual user ID
-#     mention_string = f'<a href="tg://user?id={user_id}">User</a>'
-
-#     context.bot.send_message(chat_id=update.message.chat_id, text=mention_string, parse_mode=ParseMode.HTML)
+@dp.callback_query(F.data == "reklama")
+async def Obunachilar(call: CallbackQuery):
+    ii = []
+    for i in ReadObunachilars():
+        ii.append(i[3])
+        await bot.send_photo(chat_id=ii, photo="https://pbs.twimg.com/media/FzjzGjWXsAEn7kb.jpg")
+        # await call.message.answer(f"Obunachilaringiz soni: {obunachilar}")
 
 
 
@@ -982,7 +974,7 @@ async def Obunachilar(call: CallbackQuery):
         await call.message.answer(f"Obunachilaringiz soni: {obunachilar}")
 
 
-@dp.callback_query(F.data == "userr")
+@dp.callback_query(F.data == "username")
 async def Obunachilar(call: CallbackQuery):
     for ii in ReadObunachilars():
         await call.message.answer(f"Obunachilarning ismi: <a href='{ii[3]}'> {ii[1]}</a>")
@@ -1005,10 +997,17 @@ async def ortga_start(call: CallbackQuery):
 
 
 async def main():
+    # await bot.send_message(chat_id=admins[0],text="Salom Javohir men yana ishga tushdim")
     await dp.start_polling(bot)
+
+async def error():
+    # await bot.send_message(chat_id=admins[0],text="Men ishimni tugatdim🤣")
+    await bot.session.close()
+
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except:
+        asyncio.run(error())
         print("Tugadi")
