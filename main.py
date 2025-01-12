@@ -29,7 +29,6 @@ async def cmd_start(message: Message, state: FSMContext):
     user_url = message.from_user.url
     if message.from_user.id == admins[0]:
         await message.answer("Qanday eee 👋\n\nNima qilamiz ich qisib getdi qu ♠", reply_markup=adminlar)
-        await state.set_state(Rekla.abc1)
     else:
         a = []
         for i in ReadObunachilars():
